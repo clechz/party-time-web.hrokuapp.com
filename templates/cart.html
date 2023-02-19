@@ -1,0 +1,169 @@
+{% extends'layout.html' %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block main %}
+<style defer>
+	/*menu*/
+	.p-img{
+        margin: 20px;
+		width: 200px;
+		border-radius: 10px;
+	}
+	.popup-img{
+		border-radius: 10px;
+		width: 65%;
+	}
+	.product{
+		margin: 15px;
+		display: inline-block !important;
+		width: 20% !important;
+			
+	}
+	.bold{
+		font-weight: bold;
+	}
+	.back{
+		font-size: 20px;
+		margin-left: 20px;
+	}
+	#break{
+		display: none;
+	}
+	#finish{
+		border-radius: 40px 40px 40px 40px;
+		position: fixed !important;
+		bottom: 80px !important;
+		right: 20px !important;
+	}
+	.summary{
+		position: fixed !important;
+		bottom: 130px !important;
+		right: 30px !important;
+	}
+	.menu-nav-item{
+		font-size: 20px;
+	}
+	.sum-r{
+		color: darkgreen;
+	}
+	/*Phone version*/
+	@media (max-width: 700px){
+
+		.p-img{
+            margin: 20px;
+			width: 200px;
+			border-radius: 10px;
+
+		}
+		.product{
+			margin: 15px;
+			display: inline-block !important;
+			width: 40% !important;
+			
+		}
+
+		.menu-header{
+			text-align: left;
+			margin-left: 18px;
+		}
+		h6{
+			display: inline-block;
+			margin-top: 170px;
+			margin-left: -135px;
+		}
+		.popup-img{
+			border-radius: 10px;
+		}
+	}
+
+	@media (max-width: 447px){
+		.popup-img{
+			float: unset !important;
+		}
+		.cart-btn{
+			margin-left: -10px !important;
+			margin-top: 20px !important;
+			float: unset !important;
+		}
+		.price-btn{
+			margin-top: 20px;
+			float: unset !important;
+		}
+
+	}
+</style>
+{% if not cart %}
+<center>
+	<br><br><br>
+	<h3>!سلة المشتريات الخاصة بك فارغة</h3>
+	<br>
+	<a href="/menu">
+        <button class="btn btn-outline-dark"><h5>أطلب طلب جديد الآن</h5></button>
+	</a>
+
+</center>
+{% else %}
+
+<nav class="navbar sticky-top navbar-light bg-light menu-bar" style="background-color: white !important;">
+	<div class="container-fluid">
+		<a style="margin-left: -12px;" href="/menu"><button class="btn"><i class="fa fa-arrow-left menu-nav-item
+			"></i></button></a>
+		
+		<ul class="navbar-nav ml-auto">
+
+			<li class="nav-item">
+				<a href="/cart">
+					<button style="margin-right: -27px;" class="btn">
+						<i class="fa fa-shopping-bag menu-nav-item" aria-hidden="false"><span id=cart_count style="background-color: red; border:2px black; border-radius: 50%; color: white; position: relative; padding-right:4px; padding-left:4px; font-family: sans-serif; font-size:12px;">{{p_sum}}</span></i>
+					</button>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+</nav>
+
+<script>
+	var cart = "{{request.cookies.get('cart')}}".split(' ');
+	var len_cart = +"{{request.cookies.get('len_cart')}}";
+	var products = document.querySelectorAll('.cart-product-container');
+	var token = 0
+</script>
+
+<a href="/info"  {%if not request.cookies.get('cart')%} disabled {% endif %}>
+	<button id=finish class="btn btn-success" {%if not request.cookies.get('cart')%} disabled {% endif %}>المتابعة لإتمام الطلب</button>
+</a>
+
+{% for p in cart %}
+<div style="margin-left: 20px; margin-right: 20px;" class="cart border cart-product-container">
+	<div class="row">
+		<span>
+			<img id="cart-product-{{p['id']}}" class="border-dark p-img" src="/static/images/products/{{p['id']}}.jpg">
+			<button style="margin-bottom: 155px; margin-left: -68px;" class="btn btn-outline-danger" onclick="cart.forEach((item, index, arr) =>{if (item == '{{p['id']}}' && token == 0){ token += 1; cart.splice(index, 1); len_cart -= 1; document.cookie = `cart=${cart.join(' ')}; max-age=43200; path=/;`; document.cookie = `len_cart=${len_cart}; max-age=43200; path=/;`; window.location.href = '/cart' }});"><i class="fa fa-trash-o" aria-hidden="true"></i>			</button>
+			<br>
+			<label style="margin-left: 25px;" for="cart-product-{{p['id']}}" class="bold">{{p["title"]}}</label>
+			<p style="margin-left: 25px;" class="sum-r bold"> رس {{p["price"]}}</p>
+		</span>
+	</div>
+</div>
+<br>
+{% endfor %}
+<br>
+<br>
+
+<div class="summary">
+    <br>
+    <p>رسوم التوصيل <span class="sum-r">  {{shipping}} رس</span></p>
+    <h5>المجموع <span class="sum-r"> {{total}} رس</span></h5>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+<body>
+	<form action="{{to}}" method="post">
+		<input type="hidden" name="email" value="{{email}}">
+	</form>
+</body>
+
+<script>
+	const form = document.querySelector("form");
+	window.addEventListener("load", function() {
+		form.submit()
+	});
+</script>

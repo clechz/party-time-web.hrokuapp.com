@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <!-- to fit everything to the screen -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel="icon" href="/static/images/pt.ico">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/db0813dfb6.js" crossorigin="anonymous"></script>
+        <script data-ad-client="ca-pub-5102477231466886" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+        {% block head %}
+        {% endblock %}
+        <title>PartyTime: {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="/static/style/layout.css">
+        <link rel="stylesheet" href="/static/style/style.css/">
+        <script defer src="/static/script/layout.js"></script>
+    </head>
+
+    <body>
+    
+<!--     <div class="loader d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div> -->
+
+    <div class="content">
+        <!-- sidebar -->
+        <nav class="navbar sidebar collapse" id="navbarToggleExternalContent">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a href="/"><button class="btn sb-link"><i class="fa fa-home sidebar-icon" aria-hidden="true" style="color: black; font-size: 25px;"></i> الرئيسية</button></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/menu"><button class="btn sb-link"><i class="fa fa-cutlery sidebar-icon" aria-hidden="true" style="color: black; font-size: 25px;"></i> قائمة الطعام</button></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/cart"><button class="btn sb-link"><i class="fa fa-shopping-bag sidebar-icon" aria-hidden="true" style="color: black; font-size: 25px;"></i>السلة</button></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/find"><button class="btn sb-link"><i class="fa fa-map-marker sidebar-icon" aria-hidden="true" style="color: black; font-size: 25px;"> </i>  أوجد متجر</button></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="/#footer"><button class="btn sb-link"><i class="fa fa-heart sidebar-icon" aria-hidden="true" style="color: black; font-size: 25px;"></i> من نحن</button></a>
+                </li>
+                
+                <br>
+
+                <li class="nav-item">
+                    {% if session.get("user_id") %}
+                        <a href="/profile">
+                            <button class="btn btn-light">حسابي <i class="fa fa-user-circle-o"></i></button>
+                        </a>
+                    {% else %}
+                        <a href="/login">
+                            <button class="btn btn-light">تسجيل دخول</button>
+                        </a>
+                    {% endif %}
+                </li>
+
+                <br>
+
+                <li class="nav-item">
+                    {% if session.get("user_id") %}
+                        <a href="/logout">
+                            <button class="btn btn-dark">خروج  <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                        </a>
+                    {% else %}
+                        <a href="/signup"><button class="btn btn-dark">إنشاء حساب</button></a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- main nav -->
+        <nav class="navbar navbar-light navbar-expand-lg bg-light nav-1">
+            
+            <a href="/"><span class="navbar-brand">PartyTime</span></a>
+
+            <ul class="navbar-nav mr-auto">
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/menu">قائمة الطعام</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">سلة المشتريات</a>
+                </li>            
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/#footer">من نحن</a>
+                </li>
+
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/find"><i class="fa fa-map-marker" aria-hidden="true" style="color: black; font-size: 25px;"> </i> أوجد متجر</a>
+                </li>
+                <li class="nav-item">
+                    {% if session.get("user_id") %}
+                        <a class="nav-link" href="/profile">
+                            <button class="btn btn-light nav-buttons">حسابي <i class="fa fa-user-circle-o"></i></button>
+                        </a>
+                    {% else %}
+                        <a class="nav-link" href="/login">
+                            <button class="btn btn-light nav-buttons">تسجيل الدخول</button>
+                        </a>
+                    {% endif %}
+                </li>
+
+                <li class="nav-item">
+                    {% if session.get("user_id") %}
+                        <a class="nav-link" href="/logout"><button class="btn btn-dark nav-buttons">تسجيل خروج  <i class="fa fa-sign-out" aria-hidden="true"></i></button></a>
+                    {% else %}
+                        <a class="nav-link" href="/signup"><button class="btn btn-dark nav-buttons">إنشاء حساب</button></a>
+                    {% endif %}
+                </li>
+            </ul>
+            
+            <span class="menu-toggler">
+                <button class="btn burger" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button> 
+            </span>
+
+        </nav>
+
+        <!--phone-nav-->
+        <nav class="navbar navbar-light fixed-bottom phone-nav">
+
+            <a class="phone-nav-item" href="/" active><i class="phone-nav-item fa fa-home"></i><span class="nav-text"></span></a>
+
+            <a class="phone-nav-item" href="/cart" active><i class="phone-nav-item fa fa-shopping-bag"></i><span class="nav-text"></span></a>
+
+            <a class="phone-nav-item" href="/menu" active><i class="phone-nav-item fa fa-cutlery" aria-hidden="true"></i><span class="nav-text"></span></a>
+
+            <a class="phone-nav-item" href="/find" active><i class="phone-nav-item fa fa-map-marker"></i><span class="nav-text"></span></a>
+
+            {% if session.get("user_id") %}
+                <a class="phone-nav-item" href="/profile" active>
+                    <i class="phone-nav-item fa fa-user-circle"></i><span class="nav-text"></span>
+                </a>
+            {% else %}
+                <a class="phone-nav-item" href="/signup" active>
+                    <i class="phone-nav-item fa fa-user"></i><span class="nav-text"></span>
+                </a>
+            {% endif %}
+
+        </nav>
+        <br id=break>
+
+        {% block main %}
+        {% endblock %}
+    </div>
+    </body>
+</html> 

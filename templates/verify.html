@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+رمز التفعيل
+{% endblock %}
+
+{% block head %}
+<link rel=stylesheet href=static/style/info.css>
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+<br>
+<br>
+<form id="form" action="{{request.path}}" method="post">
+    <div class="form-group">
+    	<h5>هنا {{email}}أدخل رمز التفعيل المرسل ل</h5>
+    	<br>
+        <input size="30" required name="verify" id="verify" type="text" autocomplete="off"  class="form-control filed" placeholder="رمز التفعيل">
+        <button class="btn btn-dark log">تأكيد</button>
+    </div>
+</form>
+ <!----------------------spechial content------------------------>
+{% endblock %}

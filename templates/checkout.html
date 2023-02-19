@@ -1,0 +1,32 @@
+{% extends'layout.html' %}
+
+{% block title %}
+    إتمام الطلب
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+<style>
+    p{
+        font-weight: bold;
+        font-size: 22px;
+        text
+    }
+</style>
+<center>
+<br>
+<br>
+<p>عزيزي\تي</p>
+<br>
+<h5>{{session.get("order")["name"]}}</h5>
+<br>
+<p>تم إتمام الطلب بنجاح</p>
+<p>و سيتواصل معك مندوبنا</p>
+<p>على الواتساب الخاص بالرقم</p>
+<br>
+<h5>{{session.get("order")["phone"]}}</h5>
+<br>
+<button class="btn btn-dark">العودة إلى الصفحة الرئيسية</button>
+</center>
+<!-----------x-----------spechial content-----------x----------->
+{% endblock %}

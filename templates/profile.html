@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+حسابي
+{% endblock %}
+
+{% block head %}
+<link rel=stylesheet href=static/style/info.css>
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+
+<div class="form-group">
+
+<br>
+
+<i style="color: #343a40 !important; font-size: 80px;" class="fa fa-user-circle-o" aria-hidden="true"></i>
+
+<br><br><br>
+
+<h4>البريد الإلكتروني</h4>
+
+<input readonly size="30" type="email"  class="form-control filed"  value="{{email}}">
+
+<a disabled> <!-- href="/profile/email" -->
+        <button disabled class="btn btn-outline-dark">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </button>
+</a>
+
+<br>
+<br>
+<br>
+
+<h4>كلمة المرور</h4>
+
+<input readonly size="30" type="password" class="form-control filed" value="**********">
+
+<a href="/profile/password">
+        <button class="btn btn-outline-dark">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>        
+        </button>
+</a>
+
+</div>
+<!------------x---------spechial content------------x----------->
+{% endblock %}

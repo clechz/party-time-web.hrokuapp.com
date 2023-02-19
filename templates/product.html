@@ -1,0 +1,620 @@
+{%extends "layout.html"%}
+
+{% block title %}
+    {{product["title"]}}
+{% endblock %}
+
+{% block head %}
+<style>
+    html, body
+    {
+        height:100%;
+    }
+    #container
+    {
+        min-height: 100%;
+    }
+
+    #main
+    {
+        overflow:auto;
+        padding-bottom:100px;
+    }
+    #footer
+    {
+        position: relative;
+        height: 100px;
+        /*background-color: #343a40;*/
+        margin-top: -100px;
+        clear:both;
+        margin-bottom: -200px;
+    }
+
+
+
+
+    svg {
+      position: absolute;
+    }
+
+    circle:nth-of-type(1) { fill: black; }
+    circle:nth-of-type(2) { fill: #ffc107; }
+    circle:nth-of-type(3) { fill: #ffc107; }
+    circle:nth-of-type(4) { fill: black; }
+
+    #clackers {
+    /*   border: 1px solid white; */
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .pre-bgc {
+      background: white;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .dark
+    {
+        color: #343a40;
+    }
+
+    .navbar-brand
+    {
+        font-size: 44px !important;
+        /*font-weight: bold !important;*/
+        color:#ffc107 !important;
+        padding: 0;
+        margin: 0;
+    }
+    .d-wi
+    {
+
+    }
+    .sm
+    {
+        color:#ffc107;
+        font-size: 250%;
+        margin:  10px;
+
+    }
+    .sm-fot
+    {
+        padding-bottom: 10px;
+    }
+    .pay
+    {
+        color: gray;
+        font-size: 150%;
+    }
+    .sm:hover
+    {
+        color:white;
+    }
+    /*.pad-right*/
+    /*{*/
+    /*    margin-right: 580px;*/
+    /*}*/
+
+
+    .nav-link
+    {
+        font-weight:bold;
+        margin-right:15px;
+        margin-left:15px;
+
+    }
+
+    .fot-cat
+    {
+        color: #dddddd;
+        font-weight: bold;
+    }
+    .contact
+    {
+
+        display: inline !important;
+    }
+    #loginDrop,.s
+    {
+        background-color: #343a40;
+        color:#ffbf00	;
+        padding-left:15px;
+        font-weight:bold;
+    }
+    #loginDrop:hover
+    {
+        background-color:#ffbf00;
+        color:#343a40;
+    }
+
+    .lang
+    {
+        width: 10%;
+    }
+    @media(max-width:1053) and (min-width:768)
+    {
+        #search_bar
+        {
+            width: 200000000000%;
+        }
+        .s
+        {
+            visibility: hidden !important;
+        }
+    }
+
+    @media(max-width:992px)
+    {
+        .mobileMenu
+        {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+    .items-bar
+    {
+        border:solid gray;
+    }
+    .search-bar
+    {
+        /*size:20;*/
+    }
+
+    .main-nav
+    {
+        color: #ffc107;
+        padding-right:5px;
+    }
+    .product
+    {
+        border:solid black;
+        /*margin:10px;*/
+        padding:5px;
+    }
+    .product-image
+    {
+        margin-right: 100px;
+    }
+    .product-name
+    {
+        font-weight:bold;
+
+    }
+    .row
+    {
+        padding: 1px;
+        margin-top: 50px;
+        margin-left: 8px;
+    }
+    .row-arr
+    {
+        padding: 25px;
+    }
+    .category
+    {
+        margin-right: 10px;
+
+    }
+    .categories-h
+    {
+        color: gray;
+        font-weight: bold;
+    }
+    .n-b
+    {
+        margin-top:7.5px;
+    }
+    .cart
+    {
+        display: flex;
+        justify-content: flex-start;
+
+    }
+    .summary
+    {
+        text-align: center;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 50px;
+
+    }
+    #cart, #wish
+    {
+        margin-left: 170px;
+        margin-top:-790px;
+        color: #ffc107;
+
+    }
+    #cart:hover, #wish:hover
+    {
+        color: #333333;
+
+    }
+
+    .border-top-dark
+    {
+        border-top:.1px solid #343a40 !important;
+    }
+    .end
+    {
+        text-align: center;
+    }
+    .end-nav
+    {
+        margin-bottom: -5px;
+    }
+    .end-p
+    {
+        color: black;
+        font-weight: bold;
+    }
+    .nav-1
+    {
+        margin-top:-29px;
+    }
+    .heart-end
+    {
+        color: red;
+    }
+    .navbar-light
+    {
+        background-color: #dddddd;
+    }
+
+    .sum-r
+    {
+        color: #343a40;
+        font-weight: bold;
+    }
+    .blue
+    {
+        color:#007bff;
+        font-weight: bold;
+
+    }
+    .bold
+    {
+        font-weight: bold;
+    }
+    .add-cart
+    {
+        color: #007bff;
+    }
+    .add-wish
+    {
+        color: #FF4040;
+    }
+    .btn-secondary
+    {
+        background-color: #ffc107 !important;
+    }
+    .cart-p
+    {
+
+
+    }
+    .p-count
+    {
+        text-align: center;
+        font-weight: bold;
+        margin-left: 40px;
+    }
+    .category:hover
+    {
+        height: 400px;
+    }
+    .products
+    {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .products-electronics
+    {
+        margin-top: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+
+    }
+    /*.seemore*/
+    /*{*/
+    /*    margin-bottom: -100px;*/
+    /*}*/
+    .search_bar
+    {
+
+    }
+    .phone-nav-item
+    {
+        display: none;
+        visibility: hidden;
+        padding: 0;
+        margin: 0;
+    }
+    .d-a
+    {
+        margin-bottom: -170px;
+        margin-left: 210px;
+    }
+    .d-a-1
+    {
+
+    }
+    .d-a-2
+    {
+        margin-top: 30px;
+    }
+    #yh
+    {
+        margin-bottom: -75px;
+    }
+
+    .p-row
+    {
+        padding: 20px;
+    }
+    .search-category
+    {
+
+        padding: 10px;
+    }
+    .search-h
+    {
+        color: gray;
+        margin-left: 15px;
+    }
+    .search-row
+    {
+        padding-top:5px;
+        border-bottom: .5px solid gray;
+        flex-shrink: 3;
+    }
+    .product-tag-pc
+    {
+        border-radius: 40px 40px;
+        margin-left: 30px;
+        margin-top: -1070px;
+        /*width: 50px;*/
+    }
+    .product-tag-pc:click, .product-tag-mo:click
+    {
+        border: black;
+    }
+    .product-tag-mo
+    {
+        border-radius: 40px 40px;
+        margin-left: -50px;
+        margin-top: -1070px;
+        visibility: hidden;
+        /*width: 50px;*/
+    }
+    .product-img
+    {
+        width: 200px;
+    }
+    .checkout
+    {
+        text-align: center;
+    }
+    .elec-img
+    {
+        text-align: center;
+    }
+    .fa-arrow-alt-circle-up
+    {
+        text-align: center;
+        color: #ffc107;
+        font-size: 40px;
+    }
+    .men
+    {
+        margin-top: 250px;
+    }
+    .sport
+    {
+        margin-top: 250px;
+    }
+    @media (max-width: 1256px) and (min-width: 700px)
+    {
+        .elec-img
+        {
+            width: 90%;
+        }
+    }
+    @media (min-width: 769px)
+    {
+        #search_bar, .s
+        {
+            margin-left: 50px;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 1149px) {
+       .nav-1
+       {
+           margin-top:-3px;
+       }
+    }
+
+    /*phone version*/
+    /*@media screen or print */
+    @media ( max-width: 700px)
+    {
+        .nav-1
+        {
+            visibility: hidden;
+
+        }
+        .description
+        {
+            width: 50%;
+        }
+
+        .fa-user
+        {
+
+        }
+        .n-b
+        {
+            visibility: hidden;
+        }
+        #container
+        {
+            margin-top: -380px;
+        }
+        .n-b, .delete, .add
+        {
+            width: 15px !important;
+            padding: 0px !important;
+        }
+
+        /*#cart, #wish*/
+        /*{*/
+        /*    margin-right: 100px;*/
+        /*    margin-top:-600px;*/
+
+        /*}*/
+        /*.product-tag-mo*/
+        /*{*/
+        /*    border-radius: 40px 40px;*/
+        /*    margin-top: -900px;*/
+        /*    visibility: visible;*/
+        /*}*/
+
+        /*.product-img*/
+        /*{*/
+        /*    width: 150px;*/
+        /*}*/
+        #search_bar
+        {
+            /*padding: 0px;*/
+            /*margin: 0px;*/
+            float: center;
+        }
+        /*.category-banner*/
+        /*{*/
+        /*    visibility: hidden;*/
+        /*}*/
+        .navbar-brand
+        {
+            font-size: 44px !important;
+            color:#ffc107 !important;
+            margin-left: -5px;
+            margin-top: -13px;
+
+        }
+
+        body
+        {
+            margin: 0 0 55px 0;
+        }
+        .phone-nav
+        {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 56px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: #ffffff;
+            display: flex;
+            overflow: auto;
+        }
+        .phone-nav-item
+        {
+            color: #343a40;
+            visibility: visible;
+            display: block;
+            font-size: 25px;
+
+        }
+        body
+        {
+            margin-top: 200px;
+        }
+        .elec-img
+        {
+            width: 90%;
+        }
+        .product-img
+        {
+            margin-left: 60px;
+        }
+        .product-tag-pc
+
+        {
+            margin-left: 60px;
+        }
+        #cart, #wish
+        {
+            margin-left: 200px;
+        }
+
+    }
+    .img
+    {
+        border-radius: 40px;
+    }
+
+    .img:hover
+    {
+        border: 2px solid gold;
+        border-radius: 40px;
+    }
+    .description
+    {
+        font-size: 20px;
+        width: 400px;
+        text-align: left;
+    }
+    .pp
+    {
+        font-size: 30px;
+        width: 400px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .nooo
+    {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<br><br><br>
+<span id="bpi">
+    <center>
+        <img class="img" width="30%" src="{{product['img_path']}}" alt="{{product['title']}}">
+        <!--add to wish-list-->
+        <form action="/wish" method="post" class="form-group">
+            <input name="product_id" type="hidden" value="{{product['id']}}">
+            <button class="btn nooo btn-danger" type="submit"><i class="fa fa-heart"></i></button>
+        </form>
+
+        <!--add to cart-->
+        <form action="/cart" method="post" class="form-group">
+            <input name="product_id" type="hidden" value="{{product['id']}}">
+            <button class="btn nooo btn-primary" type="submit"><i class="fa fa-shopping-cart"></i></button>
+        </form>
+    </center>
+</span>
+<span class="pinfo">
+    <center>
+        <p class="description">{{product["dsc"]}}</p>
+        <p class="pp">USD{{price}}</p>
+    </center>
+</span>
+<br><br><br>
+<br><br><br>
+{% endblock %}

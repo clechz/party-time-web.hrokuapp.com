@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+نوع الطلب
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/style/info.css">
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+<br>
+<br>
+<br>
+<form action="/menu" method=post>
+	<div class="form-group">
+		<center>
+		<h4>نوع الطلب</h4>
+		
+		<br>
+		<input id="order_type" type="hidden" name="order_type">
+		
+		<input style="display:none; margin-bottom: 20px; width: 250px;" class="form-control filed" type="date" id="date" name="order-date" placeholder="أدحل تاريخ الطلب هنا">
+		
+		<button onclick="pre_click()" id=pre class="btn" style="background-color: pink !important; margin-right: 25px !important;">طلب مسبق</button>
+		
+		<button onclick="now_click()" id=now class="btn btn-dark">طلب فوري</button>
+		
+		</center>
+	</div>
+</form>
+
+<script>
+	const form =  document.querySelector("form");
+	const order_type = document.querySelector("#order_type");
+	const pre = document.querySelector("#pre");
+	const now = document.querySelector("#now");
+	const date = document.querySelector("#date");
+
+	function pre_click() {
+		order_type.value = "pre"
+
+		if (date.value){
+			form.submit()
+		}
+		
+		else{
+			date.style.display = "block"; 
+			pre.innerHTML = "التالي"; 
+			pre.style.margin = "0px"
+			now.style.display = "none";
+			document.querySelector("h4").innerHTML = "تاريخ الطلب";
+		}
+	}
+
+	function now_click() {
+		order_type.value = "now"
+		form.submit()
+	}
+
+	form.addEventListener("submit", (e) =>{
+		if (order_type.value == "now" && date.value || order_type.value == "pre" && date.value){
+			return
+		}
+		else{
+			e.preventDefault();
+		}
+		
+
+		
+	})
+</script>
+<!-----------x-----------spechial content-----------x----------->
+{% endblock %}

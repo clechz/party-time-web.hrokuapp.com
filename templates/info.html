@@ -1,0 +1,116 @@
+{% extends'layout.html' %}
+
+{% block title %}
+    بينات التوصيل
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/style/info.css">
+<script defer src="static/script/info.js"></script>
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+<center>
+    <br>
+    <br>
+
+    <br>
+
+    <form id="form" action="/info" method="post">
+        <h3>بينات الطلب</h3>
+        
+        <br>
+
+        <div class="form-group">
+            <input size="30" name="name" id="name" type="text" class="form-control filed" placeholder="الاسم الكامل مثال: احمد عبدالله">
+
+            <p id="err_name"></p>
+
+            <input size="30" name="phone" id="phone" type="text" autocomplete="off"  class="form-control filed" autofocus onkeyup="validate_number()" placeholder="رقم (واتساب) مثال: 0555555555">
+
+            <p id="err_phone"></p>
+
+            <br>
+
+            <input type="hidden" id="location" name="location">
+
+            <button class="btn btn-dark">إتمام الطلب</button>
+        
+        </div>
+
+    </form>
+
+</center>
+<script>
+    const form = document.getElementById('form');
+    const phone = document.getElementById('phone');
+    const name = document.getElementById('name');
+    const err_phone = document.getElementById('err_phone');
+    const err_name = document.getElementById('err_name');
+
+    // form valdition
+    form.addEventListener('submit', function (e) {
+        // validate stage one check if fileds are empty
+
+            if (phone.value == '')
+            {
+                err_phone.style.color = "red";
+                err_phone.innerHTML = "يجب عليك ادخال رقمك";
+                phone.style.borderColor = "red";
+                e.preventDefault();
+
+            }
+
+            else
+            {
+                err_phone.style.color = "";
+                err_phone.innerHTML = "";
+                phone.style.borderColor = "";
+            }
+
+            if (name.value == '')
+            {
+                err_name.style.color = "red";
+                err_name.innerHTML = "يجب عليك ادخال اسمك";
+                name.style.borderColor = "red";
+                e.preventDefault();
+
+            }
+
+            else
+            {
+                err_name.style.color = "";
+                err_name.innerHTML = "";
+                name.style.borderColor = "";
+            }
+
+        
+        if (!validate_number()){
+
+            e.preventDefault();
+        }
+
+    });
+    function validate_number(){
+
+        if (phone.value.length == 10 && phone.value[0] == 0  && !phone.value.match(/[A-Z]/i) || phone.value.length == 9 && phone.value[0] == 5 && !phone.value.match(/[A-Z]/i))
+        {
+            err_phone.style.color = "";
+            err_phone.innerHTML = "";
+            phone.style.borderColor = "";
+            return true
+        }
+
+        else 
+        {
+            err_phone.style.color = "red";
+            err_phone.innerHTML = "رقم الهاتف غير صحيح";
+            phone.style.borderColor = "red";
+            return false
+        }
+
+    }
+</script>
+<!-----------x-----------spechial content-----------x----------->
+{% endblock %}

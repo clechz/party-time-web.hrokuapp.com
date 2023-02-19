@@ -1,0 +1,74 @@
+{% extends'layout.html' %}
+
+{% block title %}
+    Signup
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/style/info.css"> 
+<script defer src="static/script/signup.js"></script>
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+ 
+<center>
+
+    <!--if invalid email-->
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          {% endfor %}
+       {% endif %}
+    {% endwith %}
+    
+    <br>
+
+    <form id="form" action="/signup" method="post">
+
+        <h4>البريد الإلكتروني</h4>
+
+        <div class="form-group">
+            <input size="30" id="email" name="email" type="email" autocomplete=on  class="form-control filed filed"  placeholder="البريد الإلكتروني">
+        </div>
+
+        <p id="err_email"></p>
+
+        <br>
+        <h4>كلمة المرور</h4>
+
+        <div class="form-group">
+            <input onkeyup="password_strength()" size="30" name="password" id="password" type="password" autocomplete="off" class="form-control filed filed" placeholder="كلمة المرور">
+        </div>
+
+        <h6 id="strength"></h6>
+
+        <p id="err_password"></p>
+
+        <div class="form-group">
+            <input size="30" name="repassword" id="repassword" type="password" autocomplete="off" class="form-control filed filed"  placeholder="(كلمة المرور (مرة اخرى">
+        </div>
+
+        <p id="err_repassword"></p>
+
+        <br>
+
+        <button class="btn btn-dark log">إنشاء حساب</button>
+        
+        <br>
+        <br>
+
+    </form>
+
+    <a href="/login"><button class="btn btn-light">عندك حساب؟ سجل دخول</button></a>
+
+</center>
+
+<!----------------------spechial content------------------------>
+{% endblock %}

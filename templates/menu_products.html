@@ -1,0 +1,404 @@
+{% extends'layout.html' %}
+
+{% block title %}
+قائمة الطعام
+{% endblock %}
+
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+<style defer>
+	/*menu*/
+
+	.p-img{
+		width: 100%;
+		border-radius: 10px;
+	}
+	.popup-img{
+		border-radius: 10px;
+		width: 300px;
+	}
+	.product{
+		margin: 15px;
+		display: inline-block !important;
+		width: 20% !important;		
+		position: relative;
+			
+	}
+	.bold{
+		font-weight: bold;
+	}
+	.back{
+		font-size: 20px;
+		margin-left: 20px;
+	}
+	#break{
+		display: none;
+	}
+	#finish{
+		border-radius: 40px 40px 40px 40px;
+		position: fixed !important;
+		bottom: 80px !important;
+		right: 20px !important;
+	}
+	.menu-nav-item{
+		font-size: 20px;
+	}
+	.p-tag{
+		position: absolute;
+		top: 15px;
+		left: 20px;
+		border-radius: 50%;
+		background-color: green;
+		color: white; 
+		padding-right:5px; 
+		padding-left:5px; 
+		font-family: sans-serif; 
+		font-size:12px;
+		font-weight: bold;
+	}
+
+	/*Phone version*/
+	@media (max-width: 700px){
+
+		.p-img{
+			width: 100%;
+			border-radius: 10px;
+
+		}
+		.product{
+			margin: 15px;
+			display: inline-block !important;
+			width: 40% !important;
+			
+		}
+
+		.menu-header{
+			text-align: left;
+			margin-left: 18px;
+		}
+		h6{
+			display: inline-block;
+			margin-top: 170px;
+			margin-left: -135px;
+		}
+		.popup-img{
+			border-radius: 10px;
+			width: 60%;
+
+		}
+	}
+
+	@media (max-width: 447px){
+		.popup-img{
+			float: unset !important;
+			width: 80%;
+		}
+		.cart-btn{
+			margin-left: -10px !important;
+			margin-top: 20px !important;
+			float: unset !important;
+		}
+		.price-btn{
+			margin-top: 20px;
+			float: unset !important;
+		}
+
+	}
+</style>
+{% endblock %}
+
+{% block main %} 
+<!----------------------spechial content------------------------>
+<nav class="navbar sticky-top navbar-light bg-light menu-bar" style="background-color: white !important;">
+	<div class="container-fluid">
+		<a style="margin-left: -12px;" href="/menu"><button class="btn"><i class="fa fa-arrow-left menu-nav-item
+			"></i></button></a>
+		
+		<ul class="navbar-nav ml-auto">
+
+			<li class="nav-item">
+				<a href="/cart">
+					<button style="margin-right: -27px;" class="btn">
+						<i class="fa fa-shopping-bag menu-nav-item" aria-hidden="false"><span id=cart_count style="background-color: red; border:2px black; border-radius: 50%; color: white; position: relative; padding-right:4px; padding-left:4px; font-family: sans-serif; font-size:12px;"></span></i>
+					</button>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+</nav>
+
+<input id="cart-products" name="cart" type="hidden" value="{% if cart %}{{cart}}{% else %}{% endif %}">
+<button onclick="window.location.href='/cart'" id=finish class="btn btn-success" disabled>التالي</button>
+
+<br>
+
+<div class="menu-products">
+	<center>
+
+	{% for product in products %}
+
+	{% if session.get('order_type') == "now" %}
+		{% if product["id"] in stock %}
+		<!-- Button trigger modal -->
+		<span class="btn product" data-bs-toggle="modal" data-bs-target="#modal-{{product['id']}}">
+			<span data-id="{{product['id']}}" class="p-tag"></span>
+			<img id="p-img-{{product['id']}}" class="p-img" src="/static/images/products/{{product['id']}}.jpg">
+			<label class="bold" for="p-img-{{product['id']}}">{{product["title"]}}</label>
+		</span>
+
+		<!-- Modal -->
+		<div class="modal p-modal" id="modal-{{product['id']}}" tabindex="-1" aria-labelledby="modal-{{product['id']}}-label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-{{product['id']}}-label">{{product["title"]}}</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<img class="float-start popup-img" src="/static/images/products/{{product['id']}}.jpg">
+
+						<button class="btn float-end price-btn"> رس {{product["price"]}}</i></button>
+						<button  class="btn btn-dark float-end cart-btn" data-id="{{product['id']}}">إضافة الى السلة <i class="fa fa-shopping-bag"></i></button>
+
+						<button class="btn float-end price-btn">{{product["dsc"]}}</button>
+						<!-- <button class="btn float-end price-btn">سعرة حرارية{{product["cal"]}}</button> -->
+
+						<!-- حقائق صحية -->
+						<!-- حراق ولا -->
+						<!-- عدد الحبات -->
+						<!-- QTY -->
+					</div>
+					<div class="modal-footer">
+						<h6 class="float-center">..منتجاتنا طازجة يوميًا صنعت بحب من أجلك</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% else %}
+		
+		<!-- Button trigger modal -->
+		<span class="btn product" data-bs-toggle="modal" data-bs-target="#modal-{{product['id']}}">
+			<span class="p-tag" data-id="{{product['id']}}">0</span>
+			<img  id="p-img-{{product['id']}}" class="p-img" src="/static/images/products/{{product['id']}}.jpg">
+			<label class="bold" for="p-img-{{product['id']}}">{{product["title"]}} <span style="color: red;">(نفذت الكمية)</span> </label>
+		</span>
+
+		<!-- Modal -->
+		<div class="modal p-modal" id="modal-{{product['id']}}" tabindex="-1" aria-labelledby="modal-{{product['id']}}-label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-{{product['id']}}-label">{{product["title"]}} <span style="color: red;">(نفذت الكمية)</span> </h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<img class="float-start popup-img" src="/static/images/products/{{product['id']}}.jpg">
+
+						<button class="btn float-end price-btn"> رس {{product["price"]}}</i></button>
+						<button disabled class="btn btn-dark float-end cart-btn" data-id="{{product['id']}}">إضافة الى السلة <i class="fa fa-shopping-bag"></i></button>
+
+						<button class="btn float-end price-btn">{{product["dsc"]}}</button>
+						<!-- <button class="btn float-end price-btn">سعرة حرارية{{product["cal"]}}</button> -->
+
+						<!-- حقائق صحية -->
+						<!-- حراق ولا -->
+						<!-- عدد الحبات -->
+						<!-- QTY -->
+					</div>
+					<div class="modal-footer">
+						<h6 class="float-center">..منتجاتنا طازجة يوميًا صنعت بحب من أجلك</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% endif %}
+
+	{% else %}
+		
+		{% if product["id"] in stock %}
+		<!-- Button trigger modal -->
+		<span class="btn product" data-bs-toggle="modal" data-bs-target="#modal-{{product['id']}}">
+			<img id="p-img-{{product['id']}}" class="p-img" src="/static/images/products/{{product['id']}}.jpg">
+			<label class="bold" for="p-img-{{product['id']}}">{{product["title"]}}</label>
+		</span>
+
+		<!-- Modal -->
+		<div class="modal p-modal" id="modal-{{product['id']}}" tabindex="-1" aria-labelledby="modal-{{product['id']}}-label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-{{product['id']}}-label">{{product["title"]}}</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<img class="float-start popup-img" src="/static/images/products/{{product['id']}}.jpg">
+
+						<button class="btn float-end price-btn"> رس {{product["price"]}}</i></button>
+						<button  class="btn btn-dark float-end cart-btn" data-id="{{product['id']}}">إضافة الى السلة <i class="fa fa-shopping-bag"></i></button>
+
+						<button class="btn float-end price-btn">{{product["dsc"]}}</button>
+						<!-- <button class="btn float-end price-btn">سعرة حرارية{{product["cal"]}}</button> -->
+
+						<!-- حقائق صحية -->
+						<!-- حراق ولا -->
+						<!-- عدد الحبات -->
+						<!-- QTY -->
+					</div>
+					<div class="modal-footer">
+						<h6 class="float-center">..منتجاتنا طازجة يوميًا صنعت بحب من أجلك</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% else %}
+		
+		<!-- Button trigger modal -->
+		<span class="btn product" data-bs-toggle="modal" data-bs-target="#modal-{{product['id']}}">
+			<img  id="p-img-{{product['id']}}" class="p-img" src="/static/images/products/{{product['id']}}.jpg">
+			<label class="bold" for="p-img-{{product['id']}}">{{product["title"]}} </label>
+		</span>
+
+		<!-- Modal -->
+		<div class="modal p-modal" id="modal-{{product['id']}}" tabindex="-1" aria-labelledby="modal-{{product['id']}}-label" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-{{product['id']}}-label">{{product["title"]}} </span> </h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<img class="float-start popup-img" src="/static/images/products/{{product['id']}}.jpg">
+
+						<button class="btn float-end price-btn"> رس {{product["price"]}}</i></button>
+						<button class="btn btn-dark float-end cart-btn" data-id="{{product['id']}}">إضافة الى السلة <i class="fa fa-shopping-bag"></i></button>
+
+						<button class="btn float-end price-btn">{{product["dsc"]}}</button>
+						<!-- <button class="btn float-end price-btn">سعرة حرارية{{product["cal"]}}</button> -->
+
+						<!-- حقائق صحية -->
+						<!-- حراق ولا -->
+						<!-- عدد الحبات -->
+						<!-- QTY -->
+					</div>
+					<div class="modal-footer">
+						<h6 class="float-center">..منتجاتنا طازجة يوميًا صنعت بحب من أجلك</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+	{% endif %}
+	{% endfor %}
+
+	</center>
+	<br>
+	<br>
+	<br>
+	<br>
+
+</div>
+
+<script>
+
+	Object.defineProperties(Array.prototype, {
+		count: {
+			value: function(query) {
+				/* 
+				Counts number of occurrences of query in array, an integer >= 0 
+				Uses the javascript == notion of equality.
+				*/
+				var count = 0;
+				for(let i=0; i<this.length; i++)
+					if (this[i]==query)
+						count++;
+				return count;
+			}
+		}
+	});
+	document.querySelector(".menu-toggler").removeChild(document.querySelector(".burger"))
+	
+	// list that contain all the add to cart buttons 
+	const cartBtns = document.querySelectorAll(".cart-btn");
+	// products tags
+	const pTags = document.querySelectorAll(".p-tag");
+	// cart products
+	const cart = document.querySelector("#cart-products");
+	// setting expiray time
+
+	document.cookie = `cart=${cart.value}; max-age=43200; path=/;`
+
+	pTags.forEach((pTag, index, arr) =>{
+		// I need to put datasets in vars to use them 
+		var tagId = pTag.dataset.id
+		pTag.innerHTML = "{{stock}}".split(' ').count(tagId) - cart.value.split(' ').count(tagId)
+	});
+
+	if (cart.value){document.cookie = `len_cart=${cart.value.split(' ').length}; max-age=43200; path=/;`}
+	
+	var cart_count = document.querySelector("#cart_count");
+	if (cart.value){cart_count.innerText = cart.value.split(' ').length}
+	else{cart_count.innerText = 0}	 
+
+	if(cart.value) {document.querySelector("#finish").removeAttribute("disabled");}
+
+	
+	// TODO add QTY
+	cartBtns.forEach((item, index, arr) =>{
+
+		item.addEventListener("click", () =>{
+			// product id
+			var productId = item.dataset.id
+
+			// [3, 1, 1]
+			var cartProductCount = cart.value.split(' ').count(productId);
+			// [1, 1, 2 , 1]
+			var stockProductCount = "{{stock}}".split(' ').count(productId);
+
+			// if product in stock and qty you asking is avilable
+			if (stockProductCount && cartProductCount < stockProductCount || "{{session.get('order_type')}}" == "pre"){
+				if (cart.value){
+					cart.value += ` ${productId}` // product id
+				}
+				else{
+					cart.value = `${productId}` // product id
+				}
+
+				pTags.forEach((pTag, index, arr) =>{
+					// I need to put datasets in vars to use them 
+					var tagId = pTag.dataset.id
+					pTag.innerHTML = "{{stock}}".split(' ').count(tagId) - cart.value.split(' ').count(tagId)
+				});
+
+				document.cookie = `cart=${cart.value}; max-age=43200; path=/;`
+				document.cookie = `len_cart=${cart.value.split(' ').length}; max-age=43200; path=/;`
+				cart_count.innerText = cart.value.split(' ').length
+				
+				document.querySelector("#finish").removeAttribute("disabled");
+
+
+				added_to_cart()
+			}
+				
+			else{
+				alert("نأسف نفذت الكمية جرب منتج آخر")
+			}
+	
+		});
+
+	});
+
+
+	function added_to_cart(){
+
+		// alert(`cart=${cart.value}`)
+	}
+
+</script>
+
+<!----------------------spechial content------------------------>
+{% endblock %}

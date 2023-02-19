@@ -1,0 +1,7 @@
+cd ../../MyProjects/partytime
+set SECRET_KEY=postgres://xahhbjyonyshlt:10c1c96941ecfe60707533c0000b79b481c0bb185c585f4ae6cc5bdcc03b63a9@ec2-18-233-207-22.compute-1.amazonaws.com:5432/d3rloc3t9drveg,abdullah.abdulrhman.alzhrani@gmail.com,saeed.abdullah11
+set DATABASE_URL=postgres://xahhbjyonyshlt:10c1c96941ecfe60707533c0000b79b481c0bb185c585f4ae6cc5bdcc03b63a9@ec2-18-233-207-22.compute-1.amazonaws.com:5432/d3rloc3t9drveg
+set EMAIL_ADRESS=abdullah.abdulrhman.alzhrani@gmail.com
+set EMAIL_PASSWORD=saeed.abdullah11
+cls
+C:\\Users\\abdul\\AppData\\Local\\Programs\\Python\\Python39\\python.exe app.py

@@ -1,0 +1,36 @@
+{% extends'layout.html' %}
+
+{% block title %}
+    إتمام الطلب
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+<script>
+	document.cookie = "cart= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;"
+	document.cookie = "len_cart= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;"
+</script>
+<style>
+    p{
+        font-weight: bold;
+        font-size: 22px;
+        text
+    }
+</style>
+<center>
+<br>
+<br>
+<p>عزيزي\تي</p>
+<br>
+<h5>{{session["order"]["name"]}}</h5>
+<br>
+<p>تم إتمام الطلب بنجاح</p>
+<p>و سيتواصل معك مندوبنا</p>
+<p>على الواتساب الخاص بالرقم</p>
+<br>
+<h5>{{session["order"]["phone"]}}</h5>
+<br>
+<a href="/"><button class="btn btn-dark">العودة إلى الصفحة الرئيسية</button></a>
+</center>
+<!-----------x-----------spechial content-----------x----------->
+{% endblock %}

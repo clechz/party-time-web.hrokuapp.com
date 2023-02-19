@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+تأكيد ايميل
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/style/info.css">
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+
+<br>
+<br>
+<form action="/forgot_password" method=post>
+	<div class="form-group">
+		<h4>البريد الإلكتروني الخاص بحسابك</h4>
+		<br>
+		<input name=email type=email class="filed form-control" size=30 placeholder="البريد الإلكتروني" required></input>
+		<button class="btn btn-dark">تأكيد</button>		
+	</div>
+</form>
+
+<!-----------x-----------spechial content-----------x----------->
+{% endblock %}

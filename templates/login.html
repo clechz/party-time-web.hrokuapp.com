@@ -1,0 +1,75 @@
+{% extends'layout.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="static/style/info.css">
+<script defer src="static/script/login.js"></script>
+{% endblock %}
+
+{% block main %}
+<!----------------------spechial content------------------------>
+
+<center>
+
+    <!--if invalid email-->
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+          {% if message[0] == 'y' %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>{{message}}!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% else %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{message}}!</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+          {% endfor %}
+       {% endif %}
+    {% endwith %}
+
+    <br>
+
+    <form id="form" action="/login" method="post">
+        <h4>البريد الإلكتروني</h4>
+        <div class="form-group">
+            <input size="30" name="email" id="email" type="email" autocomplete="off"  class="form-control filed filed"  placeholder="البريد الإلكتروني">
+        </div>
+
+        <p id="err_email"></p>
+
+        <br>
+
+        <h4>كلمة المرور</h4>
+        <div class="form-group">
+            <input size="30" name="password" id="password" type="password" class="form-control filed filed" placeholder="كلمة المرور">
+        </div>
+
+        <p id="err_password"></p>
+
+        <div id="err"></div>
+        <br>
+        <a href="/forgot_password">
+            <p>نسيت كلمة المرور؟</p>
+        </a>
+        <button class="btn btn-dark log">تسجيل الدخول</button>
+        <br>
+        <br>
+
+    </form>
+
+    <a href="/signup"><button class="btn btn-light">ما عندك حساب؟ إنشاء حساب</button></a>
+
+</center>
+
+<!----------------------spechial content------------------------>
+{% endblock %}
