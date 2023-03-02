@@ -37,9 +37,9 @@ def send_email(subject, body, to):
     msg.set_content(str(body))
     print(body)
     # NEW UPDATE FOR COLLGES: Function doesn't work 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login("help.ptime@gmail.com", "tsbydvfmibwqeelv")
-        smtp.send_message(msg)
+#     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+#         smtp.login("help.ptime@gmail.com", "tsbydvfmibwqeelv")
+#         smtp.send_message(msg)
 
 def send_sms_verf(number):
     import requests
