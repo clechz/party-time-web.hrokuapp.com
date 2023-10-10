@@ -17,11 +17,11 @@ CATEGORIES = ["grape", "pastry", "cake"]
 
 # app var
 app = Flask(__name__)
-app.secret_key = "postgres://wyqaudmtkaunkt:ba83af477a1b75b1f32acf2b7ab624616e0fd983cc3cd184f447bb21bbcba5de@ec2-54-173-77-184.compute-1.amazonaws.com:5432/d8enpsvsceiefc,abdullah.abdulrhman.alzhrani@gmail.com,saeed.abdullah11"
+app.secret_key = "postgres://party_time_database_user:cNXVxwfFKo5WqmljYHDHCM6OOCuv1WXW@dpg-cki902212bvs73er6tbg-a.oregon-postgres.render.com/party_time_database,abdullah.abdulrhman.alzhrani@gmail.com,saeed.abdullah11"
 ext = Sitemap(app=app)
 
 # Database Engine "To be able to interact wit the DB"
-engine = create_engine("postgres://wyqaudmtkaunkt:ba83af477a1b75b1f32acf2b7ab624616e0fd983cc3cd184f447bb21bbcba5de@ec2-54-173-77-184.compute-1.amazonaws.com:5432/d8enpsvsceiefc") # DATABASE_URL = ENVIRONMENT *VARIABLE*
+engine = create_engine("postgres://party_time_database_user:cNXVxwfFKo5WqmljYHDHCM6OOCuv1WXW@dpg-cki902212bvs73er6tbg-a.oregon-postgres.render.com/party_time_database") # DATABASE_URL = ENVIRONMENT *VARIABLE*
 # run the database
 db = scoped_session(sessionmaker(bind=engine))
 
