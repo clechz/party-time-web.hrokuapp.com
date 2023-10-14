@@ -49,34 +49,32 @@ def menu():
 
     stock = db.execute("SELECT * FROM stock").fetchone()
     # later is bigger
-    if stock["date"] > dt.now():
 
-        if request.method == "POST":
-            order_type = request.form.get("order_type")
-            order_date = request.form.get("order-date")
 
-            if order_type == "now":
-                session["order_type"] = order_type
+    if request.method == "POST":
+        order_type = request.form.get("order_type")
+        order_date = request.form.get("order-date")
 
-            elif order_type == "pre":
-                
-                session["order_type"] = order_type
-                session["order_date"] = order_date
+        if order_type == "now":
+            session["order_type"] = order_type
 
-            print(session["order_type"])
-            return redirect("/menu")
+        elif order_type == "pre":
+            
+            session["order_type"] = order_type
+            session["order_date"] = order_date
 
-        else:        
+        print(session["order_type"])
+        return redirect("/menu")
 
-            if session.get("order_type"):
-                return render_template("menu.html", categories=CATEGORIES)
+    else:        
 
-            else:
-                return render_template("get_order_type.html")
+        if session.get("order_type"):
+            return render_template("menu.html", categories=CATEGORIES)
 
-    else:
+        else:
+            return render_template("get_order_type.html")
 
-        return f"<script>alert('التوصيل متوفر من 3 العصر الى {stock['date'].hour-12+3}');\n window.location.href='/'</script>"
+
 
 
 @app.route("/menu/<string:category>")
